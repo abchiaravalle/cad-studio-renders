@@ -16,8 +16,11 @@ and everything runs locally. The GPU does the rendering; no AI image generation 
 pixels are the real geometry.
 
 ```
-python3 scripts/studio.py model.step --name "Product Name"
+python3 "${CLAUDE_SKILL_DIR}/scripts/studio.py" model.step --name "Product Name"
 ```
+
+`${CLAUDE_SKILL_DIR}` is this skill's folder (Claude Code fills it in). In other agents, use the
+folder this `SKILL.md` lives in. All script paths below are relative to that folder.
 
 ## When to use
 
@@ -28,6 +31,13 @@ python3 scripts/studio.py model.step --name "Product Name"
 
 Not this skill: modelling a part from scratch (use a CAD tool), image generation from a text prompt,
 or rendering a scene that is not a product (interiors, characters).
+
+## Installing this skill
+
+- **Claude Code, terminal:** `claude plugin install cad-studio-renders --marketplace abchiaravalle/cad-studio-renders`
+- **Claude Code, desktop app:** ask Claude to clone `https://github.com/abchiaravalle/cad-studio-renders`
+  into `~/.claude/skills/cad-studio-renders` (the desktop app and terminal both read that folder).
+- **Any other agent:** put this folder wherever that agent loads `SKILL.md` folders from.
 
 ## Requirements (check first)
 
@@ -45,7 +55,7 @@ library (~60 MB) and a studio HDRI (24 MB, CC0) into `~/.cache/cad-studio-render
 
 1. **Map materials before rendering anything.** CAD files rarely carry real finishes.
    ```
-   python3 scripts/studio.py model.step --map-only
+   python3 "${CLAUDE_SKILL_DIR}/scripts/studio.py" model.step --map-only
    ```
    Read the table. Every part shows its preset and the reason. Lines ending `(review me)` are
    guesses. Fix wrong ones with a rules file (next section) and re-run `--map-only` until it's right.

@@ -1,0 +1,14 @@
+{
+  "name": "cad-studio-renders",
+  "version": "1.0.0",
+  "description": "CAD file (STEP/IGES) in: photoreal studio shots, transparent cut-outs, turntables, an editable Blender scene and a self-hosted 3D/AR web embed out.",
+  "author": {
+    "name": "Adam Chiaravalle",
+    "url": "https://amplifi.studio"
+  },
+  "homepage": "https://github.com/abchiaravalle/cad-studio-renders",
+  "repository": "https://github.com/abchiaravalle/cad-studio-renders",
+  "license": "MIT",
+  "keywords": ["cad", "step", "blender", "product-rendering", "3d", "model-viewer", "ar", "packshot"],
+  "skills": ["./"]
+}

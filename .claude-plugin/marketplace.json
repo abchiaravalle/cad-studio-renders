@@ -1,0 +1,15 @@
+{
+  "name": "cad-studio-renders",
+  "description": "CAD to studio product renders, transparent cut-outs and a self-hosted 3D embed.",
+  "owner": {
+    "name": "Adam Chiaravalle",
+    "url": "https://amplifi.studio"
+  },
+  "plugins": [
+    {
+      "name": "cad-studio-renders",
+      "source": "./",
+      "description": "CAD file (STEP/IGES) in: photoreal studio shots, transparent cut-outs, turntables, an editable Blender scene and a self-hosted 3D/AR web embed out."
+    }
+  ]
+}

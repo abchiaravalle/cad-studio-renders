@@ -161,6 +161,17 @@ def build(pkg: Path, slug: str, name: str, poster_png: Path | None, hdri: Path, 
     files = sorted(p for p in sdir.iterdir() if p.is_file())
     dl = "\n".join(f'      <li><a href="stills/{html.escape(f.name)}" download>{html.escape(f.name)}</a>'
                    f' <span>{f.stat().st_size / 1e6:.1f} MB</span></li>' for f in files)
+
+    def tile(f):
+        label = f.stem.replace("_", " ").replace("-", " ")
+        src = f"stills/{html.escape(f.name)}"
+        if f.suffix == ".mp4":
+            media = f'<video src="{src}" autoplay muted loop playsinline preload="metadata"></video>'
+        else:
+            media = f'<img src="{src}" alt="{html.escape(label)}" loading="lazy">'
+        cls = "tile alpha" if "transparent" in f.stem else "tile"
+        return f'      <figure class="{cls}"><a href="{src}">{media}</a><figcaption>{html.escape(label)}</figcaption></figure>'
+    gallery = "\n".join(tile(f) for f in files if f.suffix in (".jpg", ".png", ".webp", ".mp4"))
     (pkg / "index.html").write_text(f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -179,6 +190,11 @@ def build(pkg: Path, slug: str, name: str, poster_png: Path | None, hdri: Path, 
   ul{{padding:0;list-style:none}} li{{padding:8px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}}
   li span{{color:var(--mute)}} a{{color:var(--ink)}}
   .viewer{{border:1px solid var(--line)}}
+  .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:12px 0 8px}}
+  .tile{{margin:0;border:1px solid var(--line);background:#f4f5f6}}
+  .tile img,.tile video{{display:block;width:100%;aspect-ratio:4/3;object-fit:contain}}
+  .tile.alpha{{background:#fff conic-gradient(#e8e9eb 25%,#fff 0 50%,#e8e9eb 0 75%,#fff 0) 0 0/20px 20px}}
+  .tile figcaption{{font-size:13px;color:var(--mute);padding:8px 10px;background:#fff;border-top:1px solid var(--line);text-transform:capitalize}}
   button.copy{{float:right;font:inherit;font-size:13px;padding:4px 10px;border:1px solid var(--line);background:#fff;cursor:pointer}}
 </style>
 {head_rel}
@@ -199,6 +215,11 @@ def build(pkg: Path, slug: str, name: str, poster_png: Path | None, hdri: Path, 
   <pre id="ifr">{html.escape(f'<iframe src="https://YOUR-SITE.com/3d/{slug}/embed.html" title="{name} 3D" style="width:100%;aspect-ratio:4/3;border:0" loading="lazy" allow="xr-spatial-tracking; fullscreen"></iframe>')}</pre>
 
   <h2>Renders</h2>
+  <p>Click any image for the full-size file. Transparent cut-outs are shown on a checkerboard.</p>
+  <div class="grid">
+{gallery}
+  </div>
+  <h2>Downloads</h2>
   <ul>
 {dl}
   </ul>

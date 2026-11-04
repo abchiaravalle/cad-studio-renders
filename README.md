@@ -1,7 +1,17 @@
+<p>
+  <a href="https://amplifi.studio">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/amplifi-logo-dark-bg.svg">
+      <img src="docs/amplifi-logo-light-bg.svg" alt="amplifi.studio" width="180">
+    </picture>
+  </a>
+</p>
+
 # cad-studio-renders
 
 Turn a CAD file into product photography, transparent cut-outs and a self-hosted 3D viewer. It's
-one command and runs entirely on your machine.
+one command and runs entirely on your machine. It works on its own, and as a skill for
+[Claude Code](https://code.claude.com) (desktop app or terminal).
 
 ![Studio render of the demo bench vise](docs/demo-hero.jpg)
 
@@ -31,11 +41,90 @@ From one STEP / IGES / BREP / GLB file:
 - **Material map:** every part's finish and the reason it was chosen, overridable with a small
   rules file.
 
-## Quick start
+## Install
+
+First install the three tools it uses (see [Requirements](#requirements)): Blender 4.2+, uv and
+ffmpeg. On a Mac with Homebrew:
 
 ```bash
-# needs Blender 4.2+, uv, and ffmpeg (for turntables)
-git clone https://github.com/<owner>/cad-studio-renders
+brew install --cask blender && brew install uv ffmpeg
+```
+
+Then add the skill to Claude Code. Each option below installs the same thing, so pick one.
+
+### Claude Code desktop app
+
+The desktop app loads skills from `~/.claude/skills/`. The easiest way to put this one there is
+to let Claude do it:
+
+1. Open the **Code** tab and start a local session in any folder.
+2. Paste this into the prompt box and send it. Allow the `git clone` when Claude asks.
+
+   ```text
+   Clone https://github.com/abchiaravalle/cad-studio-renders into ~/.claude/skills/cad-studio-renders
+   ```
+
+3. Start a new session. The skill is now available in every project.
+
+If you also use Claude Code in a terminal, you can install it as a plugin instead (next section).
+The desktop app and the terminal share the same settings, so a plugin installed in one shows up
+in the other. Manage it in the desktop app under **+** > **Plugins** > **Manage plugins**.
+
+### Claude Code in the terminal
+
+From your shell:
+
+```bash
+claude plugin install cad-studio-renders --marketplace abchiaravalle/cad-studio-renders
+```
+
+Or inside a `claude` session:
+
+```text
+/plugin install cad-studio-renders --marketplace abchiaravalle/cad-studio-renders
+```
+
+If your Claude Code is older and doesn't know `--marketplace`, run `claude update`, or use the
+two-step form:
+
+```bash
+claude plugin marketplace add abchiaravalle/cad-studio-renders
+claude plugin install cad-studio-renders@cad-studio-renders
+```
+
+Check it with `claude plugin list`. It should show `cad-studio-renders` as enabled. Update later
+with `claude plugin update cad-studio-renders@cad-studio-renders`.
+
+### Manual install (any version, no plugin system)
+
+Claude Code reads personal skills from `~/.claude/skills/`, in both the desktop app and the
+terminal:
+
+```bash
+git clone https://github.com/abchiaravalle/cad-studio-renders ~/.claude/skills/cad-studio-renders
+```
+
+Update with `git -C ~/.claude/skills/cad-studio-renders pull`.
+
+### Using it in Claude Code
+
+Start a new session in the folder that holds your CAD file, then ask in plain words:
+
+> Render bracket.step as studio product shots, with a transparent version and a web embed.
+
+> Map the materials for assembly.step first, then do a preview render.
+
+> Make a turntable video and an exploded view of pump.step on a dark background.
+
+You can also call it directly: type `/cad-studio-renders` followed by what you want (installed
+as a plugin, it's `/cad-studio-renders:cad-studio-renders`). Claude reads the part list,
+shows you the material guesses, renders a quick preview and then the finals. All the files land
+in a `<model>_studio/` folder next to your CAD file.
+
+## Run it without Claude
+
+```bash
+git clone https://github.com/abchiaravalle/cad-studio-renders
 cd cad-studio-renders
 
 python3 scripts/studio.py examples/demo-vise.step --map-only   # check materials
@@ -47,16 +136,8 @@ python3 scripts/studio.py examples/demo-vise.step --name "Bench Vise" \
 The output goes to `examples/demo-vise_studio/`. On the first run, the CAD reader (~60 MB) and
 a CC0 studio HDRI (24 MB) download into `~/.cache/cad-studio-renders/`.
 
-## Use it as an agent skill
-
-`SKILL.md` follows the open Agent Skills format. To use it with Claude Code:
-
-```bash
-git clone https://github.com/<owner>/cad-studio-renders ~/.claude/skills/cad-studio-renders
-```
-
-Then ask: *"render model.step as studio shots with a transparent version and a web embed"*.
-Other agents that read `SKILL.md` folders work the same way.
+`SKILL.md` follows the open Agent Skills format, so other agents that read skill folders can
+use it too.
 
 ## Fixing materials
 
@@ -121,7 +202,7 @@ A GPU (Apple Silicon, NVIDIA, AMD) makes renders 5-20x faster. On an M1 Max a 24
 
 ## Credits and licences
 
-- Code: MIT (see `LICENSE`).
+- Made by [amplifi.studio](https://amplifi.studio). Code: MIT (see `LICENSE`).
 - Studio HDRIs: [Poly Haven](https://polyhaven.com), CC0. They're downloaded on demand and not
   stored in this repo.
 - Embed package: [`<model-viewer>`](https://github.com/google/model-viewer) (Apache-2.0) and the
