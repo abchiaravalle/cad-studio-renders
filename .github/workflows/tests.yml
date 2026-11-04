@@ -1,0 +1,28 @@
+name: tests
+on:
+  push:
+  pull_request:
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Material mapper + preset files
+        run: python -m unittest discover -s tests -v
+      - name: Syntax check every script
+        run: python -m py_compile scripts/*.py examples/*.py tests/*.py
+      - name: JSON presets parse
+        run: for f in assets/presets/*.json examples/*.json; do python -m json.tool "$f" > /dev/null; done
+  cad-reader:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: STEP -> GLB on the demo model
+        run: |
+          uv run --script scripts/cad_to_glb.py examples/demo-vise.step /tmp/demo.glb --quality web --parts-json /tmp/parts.json
+          python3 -c "import json; d=json.load(open('/tmp/parts.json')); assert len(d['parts'])==17, len(d['parts']); print('parts ok', d['triangles'])"
+          python3 scripts/automap.py /tmp/parts.json

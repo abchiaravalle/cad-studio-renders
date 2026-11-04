@@ -1,0 +1,199 @@
+{
+  "_doc": "Lighting rigs. Area lights are placed around the subject relative to the camera: az = degrees from the camera direction (+ = camera right), el = degrees above horizontal, dist = multiples of the model radius, size = [w, h] in multiples of the model radius, power = watts per (model radius in metres)^2. env_rot = HDRI rotation relative to camera.",
+  "studio_soft": {
+    "label": "Soft studio (default)",
+    "env_strength": 0.08,
+    "env_rot": 200,
+    "backdrop": 0.42,
+    "exposure": 0.0,
+    "look": "AgX - Medium High Contrast",
+    "lights": [
+      {
+        "name": "Key softbox",
+        "az": -55,
+        "el": 48,
+        "dist": 4.68,
+        "size": [
+          2.52,
+          1.8
+        ],
+        "power": 211.0,
+        "color": [
+          1.0,
+          0.97,
+          0.93
+        ]
+      },
+      {
+        "name": "Fill",
+        "az": 70,
+        "el": 20,
+        "dist": 5.77,
+        "size": [
+          3.24,
+          2.52
+        ],
+        "power": 56.8,
+        "color": [
+          0.93,
+          0.96,
+          1.0
+        ]
+      },
+      {
+        "name": "Rim strip L",
+        "az": -150,
+        "el": 30,
+        "dist": 3.96,
+        "size": [
+          0.45,
+          3.24
+        ],
+        "power": 146.1
+      },
+      {
+        "name": "Rim strip R",
+        "az": 150,
+        "el": 35,
+        "dist": 3.96,
+        "size": [
+          0.45,
+          3.24
+        ],
+        "power": 113.6
+      },
+      {
+        "name": "Top scrim",
+        "az": 0,
+        "el": 85,
+        "dist": 4.32,
+        "size": [
+          3.6,
+          3.6
+        ],
+        "power": 97.4
+      }
+    ]
+  },
+  "high_key": {
+    "label": "High-key catalogue (bright, low contrast)",
+    "env_strength": 0.35,
+    "env_rot": 200,
+    "backdrop": 0.82,
+    "exposure": 0.3,
+    "look": "AgX - Base Contrast",
+    "lights": [
+      {
+        "name": "Key",
+        "az": -40,
+        "el": 40,
+        "dist": 5.0,
+        "size": [
+          4.0,
+          3.0
+        ],
+        "power": 260
+      },
+      {
+        "name": "Fill",
+        "az": 60,
+        "el": 25,
+        "dist": 5.5,
+        "size": [
+          4.0,
+          3.0
+        ],
+        "power": 170
+      },
+      {
+        "name": "Top scrim",
+        "az": 0,
+        "el": 88,
+        "dist": 4.5,
+        "size": [
+          5.0,
+          5.0
+        ],
+        "power": 210
+      },
+      {
+        "name": "Back",
+        "az": 180,
+        "el": 30,
+        "dist": 5.0,
+        "size": [
+          4.0,
+          3.0
+        ],
+        "power": 120
+      }
+    ]
+  },
+  "dramatic": {
+    "label": "Dramatic (dark set, strong rims)",
+    "env_strength": 0.02,
+    "env_rot": 200,
+    "backdrop": 0.05,
+    "exposure": 0.0,
+    "look": "AgX - High Contrast",
+    "lights": [
+      {
+        "name": "Key",
+        "az": -70,
+        "el": 55,
+        "dist": 4.5,
+        "size": [
+          1.6,
+          1.2
+        ],
+        "power": 340,
+        "color": [
+          1.0,
+          0.96,
+          0.9
+        ]
+      },
+      {
+        "name": "Rim strip L",
+        "az": -155,
+        "el": 25,
+        "dist": 3.8,
+        "size": [
+          0.35,
+          3.6
+        ],
+        "power": 420,
+        "color": [
+          0.9,
+          0.95,
+          1.0
+        ]
+      },
+      {
+        "name": "Rim strip R",
+        "az": 155,
+        "el": 30,
+        "dist": 3.8,
+        "size": [
+          0.35,
+          3.6
+        ],
+        "power": 360,
+        "color": [
+          0.9,
+          0.95,
+          1.0
+        ]
+      }
+    ]
+  },
+  "hdri_only": {
+    "label": "HDRI only (natural reflections, no extra lights)",
+    "env_strength": 1.0,
+    "env_rot": 200,
+    "backdrop": 0.5,
+    "exposure": 0.0,
+    "look": "AgX - Medium High Contrast",
+    "lights": []
+  }
+}

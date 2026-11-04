@@ -1,0 +1,12 @@
+{
+  "_doc": "Example rules for studio.py --rules. First match wins. 'match' is a case-insensitive regex tested against the part name, instance name and assembly path. Target one body of a multi-body part with '<part>#<n>'.",
+  "rules": [
+    {"match": "frame|base|chassis",    "preset": "powder_coat", "color": "#2b2f33"},
+    {"match": "^cover|enclosure",      "preset": "plastic_textured"},
+    {"match": "logo|badge",            "preset": "anodised_color", "color": "#c8102e"},
+    {"match": "spindle",               "preset": "steel_polished", "params": {"roughness": 0.05}},
+    {"match": "window|sight glass",    "preset": "glass_smoked"},
+    {"match": "safety guard|shroud",   "hide": true},
+    {"match": "lid",                   "offset_mm": [0, 0, 120]}
+  ]
+}

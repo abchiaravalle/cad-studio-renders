@@ -1,0 +1,14 @@
+{
+  "_doc": "Camera presets. az = degrees around the product from its front (+ = toward the product's right side), el = degrees above the floor, lens = mm (36 mm sensor), fstop = f-stop as if the product were 1 m across (auto-scaled so small and large products get the same depth of field; 0 = no blur), margin = empty space around the product (fraction of frame). ortho = true gives a flat technical view.",
+  "hero":       {"label": "Hero 3/4 (low, right)",      "az": 32,  "el": 17, "lens": 85,  "fstop": 4.4, "margin": 0.11, "aspect": "4:3"},
+  "hero_left":  {"label": "Hero 3/4 (low, left)",       "az": -32, "el": 17, "lens": 85,  "fstop": 4.4, "margin": 0.11, "aspect": "4:3"},
+  "hero_low":   {"label": "Hero (very low, dramatic)",  "az": 28,  "el": 7,  "lens": 60,  "fstop": 3.2, "margin": 0.10, "aspect": "16:9"},
+  "three_quarter": {"label": "3/4 overview (higher)",   "az": 40,  "el": 32, "lens": 85,  "fstop": 5.6, "margin": 0.10, "aspect": "4:3"},
+  "front":      {"label": "Front",                       "az": 0,   "el": 6,  "lens": 135, "fstop": 0,   "margin": 0.10, "aspect": "4:3"},
+  "side":       {"label": "Right side",                  "az": 90,  "el": 6,  "lens": 135, "fstop": 0,   "margin": 0.10, "aspect": "4:3"},
+  "back":       {"label": "Back 3/4",                    "az": 155, "el": 18, "lens": 85,  "fstop": 4.4, "margin": 0.11, "aspect": "4:3"},
+  "top":        {"label": "Top down",                    "az": 0,   "el": 89.5, "lens": 135, "fstop": 0, "margin": 0.08, "aspect": "1:1"},
+  "iso":        {"label": "True isometric (flat)",       "az": 45,  "el": 35.264, "ortho": true, "margin": 0.08, "aspect": "1:1"},
+  "square":     {"label": "Square 3/4 (social, store)",  "az": 35,  "el": 20, "lens": 85,  "fstop": 4.4, "margin": 0.10, "aspect": "1:1"},
+  "detail":     {"label": "Detail close-up (set target)", "az": 30, "el": 22, "lens": 100, "fstop": 2.0, "margin": 0.25, "aspect": "4:3", "target": null}
+}

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*_studio/
+_work/
+*.blend1
+.DS_Store
+leak_patterns*.json
+!leak_patterns.example.json
